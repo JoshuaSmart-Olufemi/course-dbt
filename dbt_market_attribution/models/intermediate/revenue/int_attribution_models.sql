@@ -22,6 +22,7 @@ with attribution_models as (
 
     1.0 / total_sessions as linear_points
     from {{ ref('int_sessions_before_conversion')}}
+    where utm_medium <> '(none)'
 )
 
 select * from attribution_models 

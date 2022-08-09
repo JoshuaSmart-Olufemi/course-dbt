@@ -6,6 +6,7 @@ with sessions_before_conv as (
     , sess.user_id
     , sess.campaign as campaign_id
     , substring(split_part(sess.source_medium,'/',2) from 2 for 61) as utm_medium
+    , sess.requested_demo
     , users.created_at
     from {{ ref('stg_postgres__ga_sessions')}} as sess
     left join {{ ref('stg_postgres__userss')}} as users
