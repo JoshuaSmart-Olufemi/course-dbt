@@ -11,7 +11,7 @@ with paid_workspaces as (
     on models.user_id = workspaces.owner_user_id::integer
     left join {{ ref('stg_postgres__subscription_periods')}} as periods
     on workspaces.workspace_id = periods.workspace_id 
-    where periods.finished_on is not null
+    where periods.finished_on is not null-- if not null it means it is a paid workspace and not a free 30 day subscription
     and models.dates <= models.created_at 
     and models.dates >= models.created_at + INTERVAL '-30 day'
     and models.utm_medium <> '(none)'

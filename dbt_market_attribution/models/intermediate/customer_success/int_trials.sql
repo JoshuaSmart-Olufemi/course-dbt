@@ -11,7 +11,7 @@ with trials as (
     on models.user_id = workspaces.owner_user_id::integer
     left join {{ ref('stg_postgres__subscription_periods')}} as periods
     on workspaces.workspace_id = periods.workspace_id 
-    where periods.is_trial = 'true'
+    where periods.is_trial = 'true'--if is_trial is true then it is a trial period
     and models.dates <= models.created_at 
     and models.dates >= models.created_at + INTERVAL '-30 day'
     and models.utm_medium <> '(none)'
